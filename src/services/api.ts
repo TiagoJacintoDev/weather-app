@@ -1,12 +1,30 @@
 import axios from "axios";
+import { capitalize } from "../helpers/functions";
+import { FullWeatherApiResponse } from "../types/FullWeatherApiResponse";
+import { WeatherAPIResponse } from "../types/WeatherApiResponse";
 
 export const api = axios.create({
-  baseURL: "http://api.openweathermap.org/data/2.5/weather",
+  baseURL: "https://api.openweathermap.org/data/",
 });
 
-export const getWeatherData = async (city: string) => {
+export const getCityCoordinates = async (city: string) => {
   const { data } = await api.get(
-    `?q=${city}&appid=${import.meta.env.VITE_API_KEY}`
+    `2.5/weather?q=${city}&appid=${import.meta.env.VITE_API_KEY}`
   );
-  return data;
+  const castedData = data as WeatherAPIResponse;
+
+  const { lat, lon } = castedData.coord;
+  return { latitude: lat, longitude: lon };
+};
+
+export const getWeatherData = async (city: string) => {
+  const { latitude, longitude } = await getCityCoordinates(city);
+
+  const { data } = await api.get(
+    `3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${
+      import.meta.env.VITE_API_KEY
+    }`
+  );
+
+  return { ...data, city: capitalize(city) } as FullWeatherApiResponse;
 };
