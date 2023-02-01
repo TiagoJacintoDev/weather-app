@@ -6,7 +6,7 @@ import { FullWeatherApiResponse } from "../types/FullWeatherApiResponse";
 
 interface Props {
   speedUnit: "imperial" | "metric";
-  weather: FullWeatherApiResponse | undefined;
+  weather: FullWeatherApiResponse;
 }
 
 export const Details = ({ speedUnit, weather }: Props) => {
@@ -22,6 +22,7 @@ export const Details = ({ speedUnit, weather }: Props) => {
   } = weather?.current || {};
   const { description } = weather?.daily[0].weather[0] || {};
   const { min, max } = weather?.daily[0].temp || {};
+  const { timezone_offset } = weather || {};
 
   return (
     <div className="mt-4">
@@ -39,12 +40,16 @@ export const Details = ({ speedUnit, weather }: Props) => {
         </div>
 
         <div className="flex flex-col justify-around gap-3">
-          <span className="text-lg md:text-xl text-center">
-            Sunrise: {convertUnixTime(sunrise)}
-          </span>
-          <span className="text-lg md:text-xl text-center">
-            Sunset: {convertUnixTime(sunset)}
-          </span>
+          {sunrise && (
+            <span className="text-lg md:text-xl text-center">
+              Sunrise: {convertUnixTime(sunrise + (timezone_offset || 0))}
+            </span>
+          )}
+          {sunset && (
+            <span className="text-lg md:text-xl text-center">
+              Sunset: {convertUnixTime(sunset + (timezone_offset || 0))}
+            </span>
+          )}
         </div>
 
         <div className="flex flex-col justify-around gap-3">

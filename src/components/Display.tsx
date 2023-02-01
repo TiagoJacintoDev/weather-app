@@ -11,7 +11,7 @@ import { Weather } from "./Weather";
 interface Props {
   unit: "imperial" | "metric";
   changeUnit: (unit: "imperial" | "metric") => void;
-  weather: FullWeatherApiResponse | undefined;
+  weather?: FullWeatherApiResponse;
 }
 
 export const Display = ({ unit, changeUnit, weather }: Props) => {
@@ -112,7 +112,7 @@ export const Display = ({ unit, changeUnit, weather }: Props) => {
             <div className="max-sm:flex-col flex justify-between mt-4 w-full">
               {weather?.hourly.map(
                 (hour, index) =>
-                  index < 7 && (
+                  index < 8 && (
                     <Weather
                       temperature={hour.temp}
                       icon={hour.weather[0].icon}

@@ -22,6 +22,8 @@ export const App = () => {
     unit
   );
 
+  if (isLoading) return null;
+
   return (
     <>
       <SearchBar changeCity={changeCity} isCityValid={!isCityInvalid} />
