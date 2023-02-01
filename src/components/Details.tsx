@@ -25,31 +25,43 @@ export const Details = ({ speedUnit, weather }: Props) => {
 
   return (
     <div className="mt-4">
-      <h2 className="text-xl text-center md:text-left md:text-2xl tracking-wide font-light capitalize">
+      <h2 className="text-2xl max-md:text-center tracking-wide font-light capitalize">
         Feels Like {feels_like && Math.round(feels_like)}°. {description}
       </h2>
-      <div className="flex flex-col md:flex-row md:space-y-0 place-content-center md:justify-between font-extralight max-sm:flex-col mt-4 justify-between">
-        <div className="flex md:flex-col justify-around md:space-y-6">
-          <span>High: {max && Math.round(max)}°</span>
-          <span>Low: {min && Math.round(min)}°</span>
+      <div className="grid gap-y-3 grid-cols-2 sm:flex font-light mt-4 sm:justify-between">
+        <div className="flex flex-col justify-around gap-3">
+          <span className="text-lg md:text-xl text-center">
+            High: {max && Math.round(max)}°
+          </span>
+          <span className=" text-lg md:text-xl text-center">
+            Low: {min && Math.round(min)}°
+          </span>
         </div>
 
-        <div className="flex md:flex-col justify-around md:space-y-6">
-          <span>Sunrise: {convertUnixTime(sunrise)}</span>
-          <span>Sunset: {convertUnixTime(sunset)}</span>
+        <div className="flex flex-col justify-around gap-3">
+          <span className="text-lg md:text-xl text-center">
+            Sunrise: {convertUnixTime(sunrise)}
+          </span>
+          <span className="text-lg md:text-xl text-center">
+            Sunset: {convertUnixTime(sunset)}
+          </span>
         </div>
 
-        <div className="flex md:flex-col justify-around md:space-y-6">
-          <span>UV Index: {uvi}</span>
-          <span>Humidity: {humidity}%</span>
+        <div className="flex flex-col justify-around gap-3">
+          <span className="text-lg md:text-xl text-center">
+            UV Index: {uvi}
+          </span>
+          <span className="text-lg md:text-xl text-center">
+            Humidity: {humidity}%
+          </span>
         </div>
 
-        <div className="flex md:flex-col justify-around md:space-y-6">
-          <span>
+        <div className="flex flex-col justify-around gap-3">
+          <span className="text-lg md:text-xl text-center">
             Wind: {wind_speed} {speedUnit === "imperial" ? "mph" : "km/h"}{" "}
             {convertDegreeToDirection(wind_deg)}
           </span>
-          <span>
+          <span className="text-lg md:text-xl text-center">
             Visibility: {visibility ? visibility / 1000 : null}{" "}
             {speedUnit === "imperial" ? "mi" : "km"}
           </span>

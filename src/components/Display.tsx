@@ -20,12 +20,12 @@ export const Display = ({ unit, changeUnit, weather }: Props) => {
   );
 
   return (
-    <main className="w-full absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 sm:p-14 sm:container rounded-xl sm:shadow-2xl text-white">
+    <main className="w-full sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-y-1/2 sm:-translate-x-1/2 sm:p-14 sm:container rounded-xl sm:shadow-2xl text-white">
       {weather && (
         <>
-          <div className="max-sm:flex-col flex items-center justify-between max-sm:mt-48">
+          <div className="max-sm:flex-col flex items-center justify-between max-sm:mt-32">
             <div>
-              <h2 className="text-4xl md:text-5xl lg:text-7xl 2xl:text-8xl">
+              <h2 className="text-4xl md:text-5xl lg:text-7xl 2xl:text-8xl font-light capitalize">
                 {weather.city}
               </h2>
               <h3 className="max-sm:hidden text-xl font-light mt-6">
@@ -38,13 +38,13 @@ export const Display = ({ unit, changeUnit, weather }: Props) => {
                 src={getWeatherIcon(weather.current.weather[0].icon)}
                 alt="Current Weather Icon"
               />
-              <h2 className="text-lg md:text-2xl lg:text-4xl font-light mt-4 md:mt-6 max-mobile:text-center">
+              <h2 className="text-xl md:text-2xl lg:text-4xl font-light mt-4 md:mt-6 max-sm:text-center">
                 {weather.current.weather[0].main}
               </h2>
             </div>
 
             <div className="text-center font-light">
-              <p className="text-7xl md:text-8xl lg:text-9xl">
+              <p className="text-7xl md:text-8xl lg:text-9xl my-1">
                 {Math.round(weather.current.temp)}°
               </p>
               <span className="text-xl text-center mr-6">
@@ -57,9 +57,36 @@ export const Display = ({ unit, changeUnit, weather }: Props) => {
           </div>
 
           <div className="max-sm:justify-center flex gap-6 mt-10 text-xl font-light border-b pb-1">
-            <button onClick={() => setDisplay("daily")}>Daily</button>
-            <button onClick={() => setDisplay("hourly")}>Hourly</button>
-            <button onClick={() => setDisplay("details")}>Details</button>
+            <button
+              className={`${
+                display === "daily"
+                  ? "text-white"
+                  : "text-gray-200 text-opacity-50"
+              } hover:text-white transition-colors duration-400`}
+              onClick={() => setDisplay("daily")}
+            >
+              Daily
+            </button>
+            <button
+              className={`${
+                display === "hourly"
+                  ? "text-white"
+                  : "text-gray-200 text-opacity-50"
+              } hover:text-white transition-colors duration-400`}
+              onClick={() => setDisplay("hourly")}
+            >
+              Hourly
+            </button>
+            <button
+              className={`${
+                display === "details"
+                  ? "text-white"
+                  : "text-gray-200 text-opacity-50"
+              } hover:text-white transition-colors duration-400`}
+              onClick={() => setDisplay("details")}
+            >
+              Details
+            </button>
 
             {unit === "imperial" ? (
               <button onClick={() => changeUnit("metric")}>F°</button>
