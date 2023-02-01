@@ -20,7 +20,7 @@ export const SearchBar = ({ changeCity, isCityValid }: Props) => {
   };
 
   return (
-    <div className="absolute top-5 right-5 z-10">
+    <div className="absolute top-5 max-sm:left-1/2 max-sm:-translate-x-1/2 sm:right-5 z-10">
       <form className="text-xl" onSubmit={handleSubmit}>
         <button>
           <SearchIcon
@@ -29,7 +29,7 @@ export const SearchBar = ({ changeCity, isCityValid }: Props) => {
           />
         </button>
         <input
-          className="py-4 px-14 rounded-md outline-none"
+          className="py-4 px-12 sm:px-14 rounded-md outline-none"
           placeholder="Search for a city"
           value={input}
           onChange={(e) => setInput(e.target.value)}
