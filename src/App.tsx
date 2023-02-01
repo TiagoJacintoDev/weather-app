@@ -1,21 +1,21 @@
 import { getWeatherData } from "./services/api";
 import { useEffect, useState } from "react";
-import { WeatherAPIResponse } from "./types/WeatherApiResponse";
 import { SearchBar } from "./components/SearchBar";
+import { Display } from "./components/Display";
+import { FullWeatherApiResponse } from "./types/FullWeatherApiResponse";
 
 export const App = () => {
-  const [weatherData, setWeatherData] = useState<WeatherAPIResponse>();
-  const [city, setCity] = useState("London");
-  const [temperatureUnit, setTemperatureUnit] = useState<"C" | "F">("C");
-  const [timeSpan, setTimeSpan] = useState<"daily" | "hourly">("daily");
+  const [weather, setWeather] = useState<FullWeatherApiResponse>();
+  const [city, setCity] = useState("Aveiro");
+  const [unit, setUnit] = useState<"imperial" | "metric">("metric");
   const [isCityValid, setIsCityValid] = useState(true);
 
   const changeCity = (city: string) => setCity(city);
+  const changeUnit = (unit: "imperial" | "metric") => setUnit(unit);
 
   const changeWeatherData = async () => {
     try {
-      const weatherData = await getWeatherData(city);
-      setWeatherData(weatherData);
+      setWeather(await getWeatherData(city, unit));
       setIsCityValid(true);
     } catch {
       setIsCityValid(false);
@@ -25,13 +25,12 @@ export const App = () => {
 
   useEffect(() => {
     changeWeatherData();
-  }, [city]);
-
-  console.log(weatherData);
+  }, [city, unit]);
 
   return (
-    <main className="bg-blue-600 w-full h-full">
+    <>
       <SearchBar changeCity={changeCity} isCityValid={isCityValid} />
-    </main>
+      <Display unit={unit} changeUnit={changeUnit} weather={weather} />
+    </>
   );
 };
