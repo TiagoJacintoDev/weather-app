@@ -29,7 +29,7 @@ export const SearchBar = ({ changeCity, isCityValid }: Props) => {
           />
         </button>
         <input
-          className="py-4 px-12 sm:px-14 rounded-md outline-none"
+          className="max-sm:w-[250px] py-4 px-12 sm:px-14 rounded-md outline-none"
           placeholder="Search for a city"
           value={input}
           onChange={(e) => setInput(e.target.value)}
